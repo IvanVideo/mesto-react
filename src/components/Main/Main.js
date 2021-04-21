@@ -18,7 +18,10 @@ function Main(props) {
                 setUserName(dataUser.name);
                 setCards(dataInfo);
             })
-    }, [''])
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
     return (
         <div>
@@ -38,16 +41,17 @@ function Main(props) {
                 </section>
                 <section className="elements elements_position_content">
                     {
-                        cards.map(item =>
+                        cards.map(item => (
                             <Card
-                                key={item.id}
+                                key={item._id}
                                 link={item.link}
                                 likes={item.likes}
                                 name={item.name}
                                 prop={cards}
                                 onCardClick={props.onCardClick}
-                            />)
-                    }
+                            />
+                        )
+                        )}
                 </section>
             </main>
         </div>

@@ -1,11 +1,11 @@
-import './pages/index.css';
+import '../../pages/index.css';
 import { useState, useEffect } from 'react';
 import React from 'react'
-import Header from './components/Header/Header';
-import Main from './components/Main/Main';
-import Footer from './components/Footer/Footer';
-import PopupWithForm from './components/PopupWithForm/PopupWithForm';
-import ImagePopup from './components/ImagePopup/ImagePopup.js'
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
+import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import ImagePopup from '../ImagePopup/ImagePopup.js'
 
 
 function App() {
@@ -45,7 +45,6 @@ function App() {
 
   return (
     <div className="App">
-      <body className='body'>
         <Header />
         <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
         <Footer />
@@ -73,7 +72,6 @@ function App() {
         <PopupWithForm className="popup popup-remove" title="Вы уверены?" name="remove-form" button="Да">
         </PopupWithForm>
         <ImagePopup className="popup popup-img" card={selectedCard} onClose={closeAllPopups} />
-      </body>
     </div>
   );
 }
