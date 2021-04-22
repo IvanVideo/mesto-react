@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import React from 'react'
-import api from "../../utils/Api";
+import api from "../../utils/api";
 import Card from '../Card/Card';
 
 
