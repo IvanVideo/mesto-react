@@ -1,9 +1,9 @@
 import trash from '../../images/Trash.svg';
 import React from 'react';
-import { CardInfoData } from '../../contexts/CurrentUserContext';
+import {InfoData} from "../../contexts/CurrentUserContext";
 
 function Card(props) {
-    const dataCard = React.useContext(CardInfoData);
+    const dataCard = React.useContext(InfoData);
     // console.log(dataUser, '111111');
     // console.log(dataInfo, '000000');
     function handleClick() {

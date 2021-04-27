@@ -1,34 +1,16 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
-import api from "../../utils/api";
 import Card from '../Card/Card';
-import { UserInfoData } from '../../contexts/CurrentUserContext';
-import { CardInfoData } from '../../contexts/CurrentUserContext';
+import { InfoData } from '../../contexts/CurrentUserContext';
 
 function Main(props) {
-    // const [userName, setUserName] = React.useState();
-    // const [userDescription, setUserDescription] = React.useState();
-    // const [userAvatar, setUserAvatar] = React.useState();
     const [cards, setCards] = React.useState([]);
-    const dataUser = React.useContext(UserInfoData);
-    const dataCard = React.useContext(CardInfoData);
-    console.log(cards, '0');
+    const dataUser = React.useContext(InfoData);
+    console.log(cards,props, '0');
     useEffect(() => {
-        setCards(dataCard);
+        setCards(dataUser);
     })
-    // useEffect(() => {
-        
-    //     api.getAllInfo()
-    //         .then(([dataUser, dataInfo]) => {
-    //             // setUserAvatar(dataUser.avatar);
-    //             // setUserDescription(dataUser.about);
-    //             // setUserName(dataUser.name);
-    //             setCards(dataInfo);
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-    // }, [])
+
 
     return (
         <div>
@@ -47,18 +29,18 @@ function Main(props) {
                     </div>
                 </section>
                 <section className="elements elements_position_content">
-                    {/* {                           
-                        cards.map(item => (
-                            <Card
-                                key={item._id}
-                                link={item.link}
-                                likes={item.likes}
-                                name={item.name}
-                                prop={cards}
-                                onCardClick={props.onCardClick}
-                            />
-                        )
-                        )} */}
+                     {/*{*/}
+                     {/*   cards.map(item => (*/}
+                     {/*       <Card*/}
+                     {/*           key={item._id}*/}
+                     {/*           link={item.link}*/}
+                     {/*           likes={item.likes}*/}
+                     {/*           name={item.name}*/}
+                     {/*           prop={cards}*/}
+                     {/*           onCardClick={props.onCardClick}*/}
+                     {/*       />*/}
+                     {/*   )*/}
+                     {/*   )}*/}
                 </section>
             </main>
         </div>

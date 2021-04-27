@@ -6,8 +6,7 @@ import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup.js'
 import api from "../../utils/api";
-import { UserInfoData } from '../../contexts/CurrentUserContext';
-import { CardInfoData } from '../../contexts/CurrentUserContext';
+import { InfoData } from '../../contexts/CurrentUserContext';
 
 
 function App() {
@@ -16,13 +15,11 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState(false);
-  const [currentCard, setCurrentCard] = React.useState(false);
   // console.log(currentUser, '988888')
   useEffect(() => {
     api.getAllInfo()
       .then(([dataUser, dataInfo]) => {
         setCurrentUser(dataUser)
-        setCurrentCard(dataInfo)
       })
       .catch((err) => {
         console.log(err)
@@ -61,8 +58,7 @@ function App() {
 
 
   return (
-    <UserInfoData.Provider value={currentUser}>
-      <CardInfoData.Provider value={currentCard}>
+    <InfoData.Provider value={currentUser}>
         <div className="App">
           <Header />
           <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
@@ -92,8 +88,7 @@ function App() {
           </PopupWithForm>
           <ImagePopup className="popup popup-img" card={selectedCard} onClose={closeAllPopups} />
         </div>
-      </CardInfoData.Provider>
-    </UserInfoData.Provider>
+    </InfoData.Provider>
   );
 }
 
