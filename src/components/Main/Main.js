@@ -1,17 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import React from 'react';
 import Card from '../Card/Card';
+import api from "../../utils/api";
 import { InfoData } from '../../contexts/CurrentUserContext';
 
 function Main(props) {
-    const [cards, setCards] = React.useState([]);
-    const dataUser = React.useContext(InfoData);
-    console.log(cards,props, '0');
+    let dataUser = React.useContext(InfoData);
+
+    const [cards, setCurrentCard] = React.useState([]);
     useEffect(() => {
-        setCards(dataUser);
-    })
+        api.getAllInfo()
+            .then(([dataUser, dataInfo]) => {
+                setCurrentCard(dataInfo);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }, [])
 
-
+    console.log(cards, '00000')
     return (
         <div>
             <main>
@@ -29,18 +36,18 @@ function Main(props) {
                     </div>
                 </section>
                 <section className="elements elements_position_content">
-                     {/*{*/}
-                     {/*   cards.map(item => (*/}
-                     {/*       <Card*/}
-                     {/*           key={item._id}*/}
-                     {/*           link={item.link}*/}
-                     {/*           likes={item.likes}*/}
-                     {/*           name={item.name}*/}
-                     {/*           prop={cards}*/}
-                     {/*           onCardClick={props.onCardClick}*/}
-                     {/*       />*/}
-                     {/*   )*/}
-                     {/*   )}*/}
+                    {
+                        cards.map(item => (
+                            <Card
+                                key={item._id}
+                                link={item.link}
+                                likes={item.likes}
+                                name={item.name}
+                                prop={cards}
+                                onCardClick={props.onCardClick}
+
+                            />
+                        ))}
                 </section>
             </main>
         </div>

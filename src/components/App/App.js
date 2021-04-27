@@ -14,12 +14,12 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState(false);
-  // console.log(currentUser, '988888')
+  const [currentUser, setCurrentUser] = React.useState('');
+
   useEffect(() => {
     api.getAllInfo()
       .then(([dataUser, dataInfo]) => {
-        setCurrentUser(dataUser)
+        setCurrentUser(dataUser);
       })
       .catch((err) => {
         console.log(err)
