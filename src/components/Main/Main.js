@@ -18,7 +18,16 @@ function Main(props) {
             })
     }, [])
 
-    console.log(cards, '00000')
+    function handleCardLike(card) {
+        // Снова проверяем, есть ли уже лайк на этой карточке
+        const isLiked = card.likes.some(i => i._id === dataUser._id);
+        console.log(isLiked, '999999000000-1111')
+        // Отправляем запрос в API и получаем обновлённые данные карточки
+        api.setLike(card._id, !isLiked).then((newCard) => {
+            setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
+        }); 
+    }
+    // console.log(isLiked, '00000')
     return (
         <div>
             <main>
@@ -43,9 +52,11 @@ function Main(props) {
                                 link={item.link}
                                 likes={item.likes}
                                 name={item.name}
+                                owner={item.owner}
                                 prop={cards}
                                 onCardClick={props.onCardClick}
-
+                                onCardLike={handleCardLike}
+                                card={item}
                             />
                         ))}
                 </section>
