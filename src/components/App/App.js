@@ -7,6 +7,7 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup.js'
 import api from "../../utils/api";
 import { InfoData } from '../../contexts/CurrentUserContext';
+import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
 
 function App() {
@@ -63,19 +64,12 @@ function App() {
           <Header />
           <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
           <Footer />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
           <PopupWithForm className="popup popup-avatar" title="Обновить аватар" name="avatar-form" button="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             <input id="url-avatar" type="url" className="popup__input"
-              placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
+                placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
             <span id="url-avatar-error" className="error"></span>
-          </PopupWithForm>
-          <PopupWithForm className="popup popup_profile" title="Редактировать профиль" name="profile-form" button="Сохранить" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-            <input id="name-profile" type="text" className="popup__input popup__input_profile_name" value="" name="name"
-              required minLength="2" maxLength="40" />
-            <span id="name-profile-error" className="error"></span>
-            <input id="about-profile" type="text" className="popup__input popup__input_profile_about" value=""
-              name="about" required minLength="2" maxLength="200" />
-            <span id="about-profile-error" className="error"></span>
-          </PopupWithForm>
+        </PopupWithForm>
           <PopupWithForm className="popup popup-elements" title="Новое место" name="elements-form" button="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
             <input id="name-elements" type="text" className="popup__input popup__input_elements_name"
               placeholder="Название" name="name" required minLength="2" maxLength="40" />
