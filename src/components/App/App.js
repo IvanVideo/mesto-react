@@ -57,6 +57,16 @@ function App() {
     });
   }
 
+  function handleUpdateUser() {
+    api.editProfileInfo()
+    .then(([name, about]) => {
+        setCurrentUser([name, about]);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
 
   return (
     <InfoData.Provider value={currentUser}>
@@ -64,7 +74,7 @@ function App() {
           <Header />
           <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
           <Footer />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
           <PopupWithForm className="popup popup-avatar" title="Обновить аватар" name="avatar-form" button="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
             <input id="url-avatar" type="url" className="popup__input"
                 placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
