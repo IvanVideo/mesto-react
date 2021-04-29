@@ -69,6 +69,17 @@ function App() {
       })
   }
 
+  function handleUpdateAvatar(data) {
+    api.editAvatar(data.avatar)
+      .then((data) => {
+        setCurrentUser(data);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
 
   return (
     <InfoData.Provider value={currentUser}>
@@ -77,7 +88,7 @@ function App() {
         <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateAvatar} />
         <PopupWithForm className="popup popup-elements" title="Новое место" name="elements-form" button="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
           <input id="name-elements" type="text" className="popup__input popup__input_elements_name"
             placeholder="Название" name="name" required minLength="2" maxLength="40" />
