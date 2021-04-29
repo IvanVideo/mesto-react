@@ -8,6 +8,7 @@ import ImagePopup from '../ImagePopup/ImagePopup.js'
 import api from "../../utils/api";
 import { InfoData } from '../../contexts/CurrentUserContext';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
+import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
 
 
 function App() {
@@ -57,10 +58,11 @@ function App() {
     });
   }
 
-  function handleUpdateUser() {
-    api.editProfileInfo()
-    .then(([name, about]) => {
-        setCurrentUser([name, about]);
+  function handleUpdateUser(data) {
+    api.editProfileInfo(data)
+      .then((data) => {
+        setCurrentUser(data);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err)
@@ -70,28 +72,24 @@ function App() {
 
   return (
     <InfoData.Provider value={currentUser}>
-        <div className="App">
-          <Header />
-          <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
-          <Footer />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <PopupWithForm className="popup popup-avatar" title="Обновить аватар" name="avatar-form" button="Сохранить" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-            <input id="url-avatar" type="url" className="popup__input"
-                placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
-            <span id="url-avatar-error" className="error"></span>
+      <div className="App">
+        <Header />
+        <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} />
+        <Footer />
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <PopupWithForm className="popup popup-elements" title="Новое место" name="elements-form" button="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+          <input id="name-elements" type="text" className="popup__input popup__input_elements_name"
+            placeholder="Название" name="name" required minLength="2" maxLength="40" />
+          <span id="name-elements-error" className="error"></span>
+          <input id="url-elements" type="url" className="popup__input popup__input_elements_url"
+            placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
+          <span id="url-elements-error" className="error"></span>
         </PopupWithForm>
-          <PopupWithForm className="popup popup-elements" title="Новое место" name="elements-form" button="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-            <input id="name-elements" type="text" className="popup__input popup__input_elements_name"
-              placeholder="Название" name="name" required minLength="2" maxLength="40" />
-            <span id="name-elements-error" className="error"></span>
-            <input id="url-elements" type="url" className="popup__input popup__input_elements_url"
-              placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
-            <span id="url-elements-error" className="error"></span>
-          </PopupWithForm>
-          <PopupWithForm className="popup popup-remove" title="Вы уверены?" name="remove-form" button="Да">
-          </PopupWithForm>
-          <ImagePopup className="popup popup-img" card={selectedCard} onClose={closeAllPopups} />
-        </div>
+        <PopupWithForm className="popup popup-remove" title="Вы уверены?" name="remove-form" button="Да">
+        </PopupWithForm>
+        <ImagePopup className="popup popup-img" card={selectedCard} onClose={closeAllPopups} />
+      </div>
     </InfoData.Provider>
   );
 }

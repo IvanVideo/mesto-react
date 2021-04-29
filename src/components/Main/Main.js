@@ -20,9 +20,16 @@ function Main(props) {
 
     function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === dataUser._id);
-        api.setLike(card._id, !isLiked).then((newCard) => {
-            setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
-        });
+        if (isLiked) {
+            const isLiked = card.likes.some(i => i._id === dataUser._id);
+            api.removeLike(card._id, !isLiked).then((newCard) => {
+                setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
+            });
+        } {
+            api.setLike(card._id, !isLiked).then((newCard) => {
+                setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
+            });
+        }
     }
 
     function handleCardDelete(id) {

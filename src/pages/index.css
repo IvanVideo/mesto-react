@@ -34,6 +34,7 @@
 @import url('../blocks/profile/__main/profile__main.css');
 @import url('../blocks/popup/__form/popup__form.css');
 @import url('../blocks/element/__trash/element__trash.css');
+@import url('../blocks/element/__trash/_hidden/element__trash_hidden.css');
 @import url('../blocks/element/__pic/element__pic.css');
 @import url('../blocks/popup/__content/popup__content.css');
 @import url('../blocks/popup/__img/popup__img.css');

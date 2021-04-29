@@ -23,11 +23,10 @@ function EditProfilePopup(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        // props.onUpdateUser({
-        //     name,
-        //     about: currentUser,
-        //   });
-        props.onUpdateUser(console.log('Привет Мир!'));
+        props.onUpdateUser({
+            name,
+            about
+          });
     }
 
     return (
