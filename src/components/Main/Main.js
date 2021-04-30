@@ -37,6 +37,7 @@ function Main(props) {
                                 onCardClick={props.onCardClick}
                                 onCardLike={props.onCardLike}
                                 onCardDelete={props.onCardDelete}
+                                onDeletePopup={props.onDeletCardPopup}
                                 card={item}
                             />
                         ))}
