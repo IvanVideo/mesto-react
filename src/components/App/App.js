@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup.js'
 import api from "../../utils/api";
 import { InfoData } from '../../contexts/CurrentUserContext';
@@ -20,7 +19,7 @@ function App() {
   const [isDeleteCardPopupOpen, setIsDeleteCardPopup] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState('');
-  const [cards, setCurrentCard] = React.useState([]);
+  const [cards, setCards] = React.useState([]);
 
 
   useEffect(() => {
@@ -36,7 +35,7 @@ function App() {
   useEffect(() => {
     api.getAllInfo()
       .then(([dataUser, dataInfo]) => {
-        setCurrentCard(dataInfo);
+        setCards(dataInfo);
       })
       .catch((err) => {
         console.log(err)
@@ -48,22 +47,30 @@ function App() {
     if (isLiked) {
       const isLiked = card.likes.some(i => i._id === currentUser._id);
       api.removeLike(card._id, !isLiked).then((newCard) => {
-        setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     } {
       api.setLike(card._id, !isLiked).then((newCard) => {
-        setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
-      });
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     }
   }
 
   function handleCardDelete(id) {
     api.deleteItem(id)
-      .then((res) => {
-        setCurrentCard((cards) => cards.filter((data) => data._id !== ''));
-        console.log(res, 'Ответ');
+      .then(() => {
+        const newCards = cards.filter(e => e._id !== id);
+        setCards(newCards);
       })
-
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   function handleOpenPopupProfile() {
@@ -121,11 +128,9 @@ function App() {
   }
 
   function handleAddPlaceSubmit(data) {
-    // console.log(data, 'Что-то пришло')
     api.addNewItem(data)
       .then((data) => {
-        console.log(data, 'Что-то пришло')
-        setCurrentCard([data, ...cards]);
+        setCards([data, ...cards]);
         closeAllPopups();
       })
       .catch((err) => {
