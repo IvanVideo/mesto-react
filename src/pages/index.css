@@ -36,6 +36,7 @@
 @import url('../blocks/element/__trash/element__trash.css');
 @import url('../blocks/element/__trash/_hidden/element__trash_hidden.css');
 @import url('../blocks/element/__pic/element__pic.css');
+@import url('../blocks/element/__pic/_hidden/element__pic_hidden.css');
 @import url('../blocks/popup/__content/popup__content.css');
 @import url('../blocks/popup/__img/popup__img.css');
 @import url('../blocks/element/__heart-like/_active/element__heart-like_active.css');

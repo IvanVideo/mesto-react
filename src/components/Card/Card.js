@@ -4,15 +4,15 @@ import { InfoData } from "../../contexts/CurrentUserContext";
 
 function Card(props) {
     const dataUser = React.useContext(InfoData);
-    const isOwn = props.card._id === dataUser._id;
+    const isOwn = props.card.owner._id === dataUser._id;
     const cardDeleteButtonClassName = (
-        `element__trash ${isOwn ? 'element__trash_visible' : 'element__trash_hidden'}`
+        `element__pic ${isOwn ? 'element__pic' : 'element__pic_hidden'}`
     );
     
     const isLiked = props.likes.some(i => i._id === dataUser._id);
     const cardLikeButtonClassName = (
         `element__heart-like ${isLiked ? 'element__heart-like_active' : 'element__heart-like'}`);
-    // console.log(props.likes, '111111');
+        
     function handleClick() {
         props.onCardClick({ link: props.link, name: props.name });
     }
@@ -28,8 +28,8 @@ function Card(props) {
     return (
         <div className="element">
             <div className="element__block"><img src={props.link} alt={props.name} className="element__imag" onClick={handleClick} /></div>
-            <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteClick}><img src={trash} alt="Корзина"
-                className="element__pic" /></button>
+            <button className="element__trash" type="button" onClick={handleDeleteClick}><img src={trash} alt="Корзина"
+                className={cardDeleteButtonClassName} /></button>
             <div className="element__content">
                 <h2 className="element__title">{props.name}</h2>
                 <div className="right-content">

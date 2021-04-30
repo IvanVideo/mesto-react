@@ -9,6 +9,7 @@ import api from "../../utils/api";
 import { InfoData } from '../../contexts/CurrentUserContext';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
+import AddPlacePopup from '../AddPlacePopup/AddPlacePopup'
 
 
 function App() {
@@ -118,23 +119,27 @@ function App() {
       })
   }
 
+  function handleAddPlaceSubmit(data) {
+    console.log(data, 'Привет, Иван!')
+    api.addNewItem(data)
+      .then((data) => {
+        setCurrentCard(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
 
   return (
     <InfoData.Provider value={currentUser}>
       <div className="App">
         <Header />
-        <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} cards={cards} onCardLike ={handleCardLike} onCardDelete={handleCardDelete}/>
+        <Main onEditProfile={handleOpenPopupProfile} onAddPlace={handleOpenPopupAdd} onEditAvatar={handleOpenPopupAvatar} onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddNewCard={handleAddPlaceSubmit} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateAvatar} />
-        <PopupWithForm className="popup popup-elements" title="Новое место" name="elements-form" button="Создать" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
-          <input id="name-elements" type="text" className="popup__input popup__input_elements_name"
-            placeholder="Название" name="name" required minLength="2" maxLength="40" />
-          <span id="name-elements-error" className="error"></span>
-          <input id="url-elements" type="url" className="popup__input popup__input_elements_url"
-            placeholder="Ссылка на картинку" name="link" required minLength="2" maxLength="200" />
-          <span id="url-elements-error" className="error"></span>
-        </PopupWithForm>
         <PopupWithForm className="popup popup-remove" title="Вы уверены?" name="remove-form" button="Да">
         </PopupWithForm>
         <ImagePopup className="popup popup-img" card={selectedCard} onClose={closeAllPopups} />
