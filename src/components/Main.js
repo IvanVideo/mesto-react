@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import React from 'react';
-import Card from '../Card/Card';
-import { InfoData } from '../../contexts/CurrentUserContext';
+import Card from './Card';
+import { InfoData } from '../contexts/CurrentUserContext';
 
 function Main(props) {
     let dataUser = React.useContext(InfoData);

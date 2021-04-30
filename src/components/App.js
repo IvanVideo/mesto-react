@@ -1,15 +1,15 @@
-import '../../pages/index.css';
+import '../pages/index.css';
 import React, { useEffect } from 'react'
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-import ImagePopup from '../ImagePopup/ImagePopup.js'
-import api from "../../utils/api";
-import { InfoData } from '../../contexts/CurrentUserContext';
-import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
-import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
-import AddPlacePopup from '../AddPlacePopup/AddPlacePopup';
-import PopupDeleteCard from '../PopupDeleteCard/PopupDeleteCard';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import ImagePopup from './ImagePopup.js'
+import api from "../utils/api";
+import { InfoData } from '../contexts/CurrentUserContext';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import PopupDeleteCard from './PopupDeleteCard';
 
 
 function App() {
@@ -49,16 +49,16 @@ function App() {
       api.removeLike(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     } {
       api.setLike(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 

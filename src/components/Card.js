@@ -1,9 +1,8 @@
-import trash from '../../images/Trash.svg';
+import trash from '../images/Trash.svg';
 import React from 'react';
-import { InfoData } from "../../contexts/CurrentUserContext";
+import { InfoData } from "../contexts/CurrentUserContext";
 
 function Card(props) {
-    // console.log(props.onCardLike, 'что это')
     const dataUser = React.useContext(InfoData);
     const isOwn = props.card.owner._id === dataUser._id;
     const cardDeleteButtonClassName = (

@@ -1,4 +1,4 @@
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import PopupWithForm from './PopupWithForm';
 import React from 'react';
 
 function AddPlacePopup(props) {
