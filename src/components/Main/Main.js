@@ -6,42 +6,7 @@ import { InfoData } from '../../contexts/CurrentUserContext';
 
 function Main(props) {
     let dataUser = React.useContext(InfoData);
-    const [cards, setCurrentCard] = React.useState([]);
 
-    useEffect(() => {
-        api.getAllInfo()
-            .then(([dataUser, dataInfo]) => {
-                setCurrentCard(dataInfo);
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
-
-    function handleCardLike(card) {
-        const isLiked = card.likes.some(i => i._id === dataUser._id);
-        if (isLiked) {
-            const isLiked = card.likes.some(i => i._id === dataUser._id);
-            api.removeLike(card._id, !isLiked).then((newCard) => {
-                setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
-            });
-        } {
-            api.setLike(card._id, !isLiked).then((newCard) => {
-                setCurrentCard((state) => state.map((c) => c._id === card._id ? newCard : c));
-            });
-        }
-    }
-
-    function handleCardDelete(id) {
-        console.log(id, '0000')
-        api.deleteItem(id)
-            .then(() => {
-                // console.log(res, '999')
-                // const newCards = cards.filter(c => c._id !== '');
-                // setCurrentCard(newCards);
-            })
-    }
-    // console.log('00000')
     return (
         <div>
             <main>
@@ -60,7 +25,7 @@ function Main(props) {
                 </section>
                 <section className="elements elements_position_content">
                     {
-                        cards.map(item => (
+                        props.cards.map(item => (
                             <Card
                                 key={item._id}
                                 id={item._id}
@@ -68,10 +33,10 @@ function Main(props) {
                                 likes={item.likes}
                                 name={item.name}
                                 owner={item.owner}
-                                prop={cards}
+                                prop={props.cards}
                                 onCardClick={props.onCardClick}
-                                onCardLike={handleCardLike}
-                                onCardDelete={handleCardDelete}
+                                onCardLike={props.onCardLike}
+                                onCardDelete={props.onCardDelete}
                                 card={item}
                             />
                         ))}
