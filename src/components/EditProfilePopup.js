@@ -4,14 +4,13 @@ import { InfoData } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup(props) {
     const currentUser = React.useContext(InfoData);
-    // console.log(currentUser, '00000');
     const [name, setName] = React.useState('');
     const [about, setAbout] = React.useState('');
 
     React.useEffect(() => {
-        setName(currentUser.name);
-        setAbout(currentUser.about);
-    }, [currentUser])
+        setName(currentUser.name || '');
+        setAbout(currentUser.about || '');
+    }, [currentUser, props.isOpen])
 
     function handleChangeName(e) {
         setName(e.target.value);

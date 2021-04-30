@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import React from 'react';
 import Card from './Card';
 import { InfoData } from '../contexts/CurrentUserContext';
@@ -27,11 +26,6 @@ function Main(props) {
                         props.cards.map(item => (
                             <Card
                                 key={item._id}
-                                id={item._id}
-                                link={item.link}
-                                likes={item.likes}
-                                name={item.name}
-                                owner={item.owner}
                                 prop={props.cards}
                                 onCardClick={props.onCardClick}
                                 onCardLike={props.onCardLike}
