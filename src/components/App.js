@@ -17,7 +17,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopup] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
@@ -79,16 +79,11 @@ function App() {
     setIsDeleteCardPopup(!isDeleteCardPopupOpen)
   }
 
-  function handleOpenPopupImage() {
-    console.log('Голубева крса!')
-    setSelectedCard(!selectedCard)
-  }
-
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
-    setSelectedCard(false);
+    setSelectedCard(null);
     setIsDeleteCardPopup(false);
   }
 
@@ -143,7 +138,7 @@ function App() {
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddNewCard={handleAddPlaceSubmit} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateAvatar} />
         <PopupDeleteCard isOpen={isDeleteCardPopupOpen} onClose={closeAllPopups} onDeleteCard={handleCardDelete} />
-        <ImagePopup className="popup popup-img" card={selectedCard} onClose={closeAllPopups} />
+        <ImagePopup className="popup popup-img" card={selectedCard} dataCard={cards} onClose={closeAllPopups} />
       </div>
     </InfoData.Provider>
   );
