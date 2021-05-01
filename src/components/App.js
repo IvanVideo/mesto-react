@@ -18,7 +18,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopup] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
 
 
@@ -26,15 +26,6 @@ function App() {
     api.getAllInfo()
       .then(([dataUser, dataInfo]) => {
         setCurrentUser(dataUser);
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, [])
-
-  useEffect(() => {
-    api.getAllInfo()
-      .then(([dataUser, dataInfo]) => {
         setCards(dataInfo);
       })
       .catch((err) => {
@@ -45,14 +36,13 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     if (isLiked) {
-      const isLiked = card.likes.some(i => i._id === currentUser._id);
       api.removeLike(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
         .catch((err) => {
           console.log(err)
         })
-    } {
+    } else {
       api.setLike(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
@@ -87,6 +77,11 @@ function App() {
 
   function handleOpenPopupDelete() {
     setIsDeleteCardPopup(!isDeleteCardPopupOpen)
+  }
+
+  function handleOpenPopupImage() {
+    console.log('Голубева крса!')
+    setSelectedCard(!selectedCard)
   }
 
   function closeAllPopups() {
